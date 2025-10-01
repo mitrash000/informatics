@@ -13,5 +13,6 @@ int main() {
     std::cout << "S = " << S << std::endl;
     float C = std::max(R, S);
     std::cout << "MAX = " << C << std::endl;
+    std::cin.get();
     return 0;
 }
