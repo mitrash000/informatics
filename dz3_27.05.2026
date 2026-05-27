@@ -1,0 +1,47 @@
+﻿import time
+import random
+
+lst = [random.randint(1,100000) for _ in range(100000)]
+
+def measure_execution_time(func, *args, **kw):
+    start_time = time.time()  # Начинаем отсчет времени
+    result = func(*args, **kw)  # Выполняем переданную функцию с аргументами
+    end_time = time.time()  # Останавливаем отсчет времени
+    execution_time = (end_time - start_time) * 1000  # Время в миллисекундах
+    return  execution_time
+
+def sort_vstavkami(mas):
+    for i in range(1, len(mas)):
+        t = mas[i]
+        j = i - 1
+        while j >= 0 and mas[j] > t:
+            mas[j + 1] = mas[j]
+            j = j - 1
+        mas[j + 1] = t
+    return(mas)
+
+m=[2,1,4,5,9,7,8,6]
+def sort_pyzrkom(mas):
+    n = len(mas)
+    for i in range(0, n - 1):
+        for j in range(0, n - 1):
+            if mas[j] > mas[j + 1]:
+                mas[j], mas[j + 1] = mas[j + 1], mas[j]
+    return(mas)
+
+def quicksort(mas):
+    if len(mas) <=1:
+        return mas
+    pivot = mas[len(mas)//2]
+    left = [x for x in mas if x< pivot ]
+    middle = [x for x in mas if x== pivot ]
+    right = [x for x in mas if x> pivot ]
+    return quicksort(left)+ middle+ quicksort(right)
+
+a = measure_execution_time(sort_vstavkami,lst)
+b = measure_execution_time(sort_pyzrkom,lst)
+c = measure_execution_time(quicksort,lst)
+
+print(a)
+print(b)
+print(c)
