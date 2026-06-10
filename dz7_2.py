@@ -11,7 +11,7 @@ def anagramm(tree):
     if tree is None:
         return True
     return tree(tree.get('left'), tree.get('right'))
-#Проверка:
+#ГЏГ°Г®ГўГҐГ°ГЄГ :
 tree1 = {'val': 1,
          'left': {'val': 2,'left': {'val': 3, 'left': None, 'right': None},'right': {'val': 4, 'left': None, 'right': None}},
          'right': {'val': 2,'left': {'val': 4, 'left': None, 'right': None},'right': {'val': 3, 'left': None, 'right': None}}}
