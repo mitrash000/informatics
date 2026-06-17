@@ -1,32 +1,50 @@
-﻿def solveNQueens(n):
+def solveNQueens(n):
     solutions = []
     board = [['.' for _ in range(n)] for _ in range(n)]
-
     cols = [False] * n
     diag1 = [False] * (2 * n - 1)
     diag2 = [False] * (2 * n - 1)
-
-    def backtrack(row):
+   
+    stack = [] 
+    row = 0
+    col = 0
+    
+    while True:
         if row == n:
             solutions.append([''.join(r) for r in board])
-            return
-
-        for col in range(n):
+            if not stack:
+                break
+            row, col = stack.pop()
             d1 = row - col + n - 1
             d2 = row + col
-
-            if cols[col] or diag1[d1] or diag2[d2]:
-                continue
-
-            board[row][col] = 'Q'
-            cols[col] = diag1[d1] = diag2[d2] = True
-
-            backtrack(row + 1)
-
             board[row][col] = '.'
             cols[col] = diag1[d1] = diag2[d2] = False
-
-    backtrack(0)
+            col += 1
+            continue
+        placed = False
+        while col < n:
+            d1 = row - col + n - 1
+            d2 = row + col
+            if not (cols[col] or diag1[d1] or diag2[d2]):
+                board[row][col] = 'Q'
+                cols[col] = diag1[d1] = diag2[d2] = True
+                stack.append((row, col))
+                row += 1
+                col = 0
+                placed = True
+                break
+            col += 1
+        
+        if not placed:
+            if not stack:
+                break
+            row, col = stack.pop()
+            d1 = row - col + n - 1
+            d2 = row + col
+            board[row][col] = '.'
+            cols[col] = diag1[d1] = diag2[d2] = False
+            col += 1
+    
     return solutions
 
 n = 4
